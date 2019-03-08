@@ -66,7 +66,7 @@ database.ref().orderByChild("trainName").on("child_added", function (childSnapsh
 });
 
 // update items that have been changed
-database.ref().on("child_changed", function (childSnapshot) {
+database.ref().orderByChild("trainName").on("child_changed", function (childSnapshot) {
     $("#" + childSnapshot.key + "").empty();
     $("#" + childSnapshot.key + "").append($("<td>").text(childSnapshot.child("trainName").val()));
     $("#" + childSnapshot.key + "").append($("<td>").text(childSnapshot.child("destination").val()));
