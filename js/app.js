@@ -29,14 +29,6 @@ var config = {
 firebase.initializeApp(config);
 var database = firebase.database();
 
-firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-        // User is signed in.
-    } else {
-        window.location.replace("login.html");
-    }
-});
-
 // remove the train by its key
 function remove_train(refKey) {
     database.ref().child(refKey).remove();
