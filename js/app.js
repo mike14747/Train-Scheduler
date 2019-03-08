@@ -137,7 +137,3 @@ $("#submit_train").on("click", function () {
         setTimeout(function () { $("#train_submitted").addClass("display_none"); }, 3000);
     }
 });
-
-function logOut() {
-    firebase.auth().signOut();
-}

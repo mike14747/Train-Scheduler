@@ -33,11 +33,20 @@
 
 <body>
 
+    <script>
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                // User is signed in.
+            } else {
+                window.location.replace("login.html");
+            }
+        });
+    </script>
+
     <div class="container my-4">
 
-        <header class="row border border-primary bg-primary d-flex align-content-between px-4 py-2">
+        <header class="row border border-primary bg-primary align-content-center px-4 py-2">
             <h1 class="text-light m-0">Current Train Scheduler Header</h1>
-            <button class="ml-4" onclick="logOut">Log Out</button>
         </header>
 
         <div class="row border rounded border-primary my-4">
@@ -114,9 +123,6 @@
 
     <!-- my javascript -->
     <script src="js/app.js"></script>
-
-    <!-- firebase javascript for user auth -->
-    <script src="js/main.js"></script>
 
 </body>
 
