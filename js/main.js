@@ -2,6 +2,10 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // User is signed in.
     } else {
-        window.location.replace(login.html);
+        window.location.replace("login.html");
     }
 });
+
+function logOut() {
+    firebase.auth().signOut();
+}
