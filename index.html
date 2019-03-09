@@ -21,6 +21,8 @@
 
     <!-- Link to the Firebase js -->
     <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
     <!-- moment.js reference -->
     <script src="js/moment.js"></script>
@@ -35,8 +37,18 @@
 
     <div class="container my-4">
 
-        <header class="row border border-primary bg-primary justify-content-center px-4 py-2">
-            <h1 class="text-light m-0">Current Train Scheduler Header</h1>
+        <header class="row border border-primary bg-primary px-4 py-2">
+            <div>
+                <h1 class="text-light m-0">Current Train Scheduler Header</h1>
+                <button id="log_out" class="ml-auto" onclick="logOut()">Log Out</button>
+            </div>
+
+            <div id="log_in" class="bg-light ml-auto">
+                <h6 class="bg-secondary text-light text-center p-2">Login<span class="small">... for access to delete
+                        trains</span></h6>
+                <div id="firebaseui-auth-container"></div>
+                <div id="loader">Loading...</div>
+            </div>
         </header>
 
         <div class="row border rounded border-primary my-4">
@@ -114,6 +126,21 @@
     <!-- my javascript -->
     <script src="js/app.js"></script>
     <script src="js/login.js"></script>
+
+    <script>
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+                // user is signed in, so display the Logout button and hide the login div
+                $("#log_in").hide();
+                $("#log_out").show();
+            } else {
+                // user is not signed in, so hide the Logout button and show the login div
+                $("#log_in").show();
+                $("#log_out").hide();
+            }
+        });
+    </script>
+
 
 </body>
 
