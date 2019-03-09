@@ -17,6 +17,12 @@ var result = 0;
 var now = "";
 var nextArrival = "";
 var timeResult = [];
+var nextFormatted = "";
+var nextResult = "";
+var curFirstTime = "";
+var curFirstTimeFormatted = "";
+var refKey = "";
+var firstTimeRef = "";
 
 var config = {
     apiKey: "AIzaSyBtaD5bZyS3bWM6-ezy4YZJuXUZt4FStgg",
@@ -30,8 +36,37 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // remove the train by its key
-function remove_train(refKey) {
-    database.ref().child(refKey).remove();
+function removeTrain(key) {
+    database.ref().child(key).remove();
+}
+
+function updateTrain(key, uName, uDest, uNext) {
+
+    // calculate the change in next arrival time, change the First Train Time accordingly
+    // this will automatically update the Minutes Away
+    firstTimeRef = database.ref(key + "/firstTime");
+    firstTimeRef.on('value', function (snapshot) {
+        curFirstTime = snapshot.val();
+    });
+    curFirstTimeFormatted = moment(curFirstTime, "hh:mm");
+
+    trainName = $("#updated_train_name").val().trim();
+    destination = $("#updated_destination").val().trim();
+    nextArrival = $("#updated_next_arrival").val().trim();
+
+    // nextFormatted = moment(nextUp, "hh:mm");
+    nextResult = curFirstTimeFormatted.diff(nextFormatted, "minutes");
+
+    console.log(trainName);
+
+    /*
+    var updatedTrain = {
+        trainName: trainName,
+        destination: destination,
+        firstTime: firstTime
+    };
+    database.ref().child(refKey).update(updatedTrain);
+    */
 }
 
 // format the time and return it in the formats/values needed for the Next Arrival and Minutes Away columns
@@ -49,7 +84,6 @@ function formatTime(start, freq) {
     nextArrival = moment().add(minutesAway, 'm').format("hh:mm A");
     return [nextArrival, minutesAway];
 }
-
 // load the train schedule from the database when a new train has been added
 database.ref().orderByChild("trainName").on("child_added", function (childSnapshot) {
     newRow = $("<tr id='" + childSnapshot.key + "'>");
@@ -57,9 +91,9 @@ database.ref().orderByChild("trainName").on("child_added", function (childSnapsh
     newRow.append($("<td>").text(childSnapshot.child("destination").val()));
     newRow.append($("<td>").text(childSnapshot.child("frequency").val()));
     timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
-    newRow.append($("<td>" + timeResult[0] + "</td>"));
-    newRow.append($("<td>" + timeResult[1] + "</td>"));
-    newRow.append($("<td><button onclick=\"remove_train('" + childSnapshot.key + "')\">X</button></td>"));
+    newRow.append($("<td>").text(timeResult[0]));
+    newRow.append($("<td>").text(timeResult[1]));
+    newRow.append($("<td class='align-middle'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></form></td>"));
     $("#trainTable").append(newRow);
 }, function (errorObject) {
     console.log("There is an error: " + errorObject.code);
@@ -74,7 +108,7 @@ database.ref().orderByChild("trainName").on("child_changed", function (childSnap
     timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[0] + "</td>"));
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[1] + "</td>"));
-    $("#" + childSnapshot.key + "").append($("<td><button onclick=\"remove_train('" + childSnapshot.key + "')\">X</button></td>"));
+    $("#" + childSnapshot.key + "").append($("<td><button onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
 });
 
 // remove items when they've been deleted
