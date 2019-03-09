@@ -33,6 +33,6 @@ var uiConfig = {
 ui.start('#firebaseui-auth-container', uiConfig);
 
 function logOut() {
-    console.log("Logout button clicked!")
-    // firebase.auth().signOut();
+    // console.log("Logout button clicked!")
+    firebase.auth().signOut();
 }
