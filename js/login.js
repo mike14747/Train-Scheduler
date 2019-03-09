@@ -42,9 +42,11 @@ firebase.auth().onAuthStateChanged(function (user) {
         // user is signed in, so display the Logout button and hide the login div
         $("#log_in").hide();
         $("#log_out").show();
+        $(".deleteBtn").show();
     } else {
         // user is not signed in, so hide the Logout button and show the login div
         $("#log_in").show();
         $("#log_out").hide();
+        $(".deleteBtn").hide();
     }
 });

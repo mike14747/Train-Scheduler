@@ -93,14 +93,7 @@ database.ref().orderByChild("trainName").on("child_added", function (childSnapsh
     timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
     newRow.append($("<td>").text(timeResult[0]));
     newRow.append($("<td>").text(timeResult[1]));
-    newRow.append($("<td class='align-middle'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
-    /*
-    if (user) {
-        newRow.append($("<td class='align-middle'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
-    } else {
-        newRow.append($("<td>"));
-    }
-    */
+    newRow.append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
     $("#trainTable").append(newRow);
 }, function (errorObject) {
     console.log("There is an error: " + errorObject.code);
