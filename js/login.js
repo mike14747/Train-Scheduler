@@ -36,3 +36,15 @@ function logOut() {
     // console.log("Logout button clicked!")
     firebase.auth().signOut();
 }
+
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        // user is signed in, so display the Logout button and hide the login div
+        $("#log_in").hide();
+        $("#log_out").show();
+    } else {
+        // user is not signed in, so hide the Logout button and show the login div
+        $("#log_in").show();
+        $("#log_out").hide();
+    }
+});
