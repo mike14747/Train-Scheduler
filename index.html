@@ -40,10 +40,10 @@
         <header class="row border border-primary bg-primary px-4 py-2">
             <div>
                 <h1 class="text-light m-0">Current Train Scheduler Header</h1>
-                <button id="log_out" class="ml-auto" onclick="logOut()">Log Out</button>
+                <button id="log_out" class="ml-auto display_none" onclick="logOut()">Log Out</button>
             </div>
 
-            <div id="log_in" class="bg-light ml-auto">
+            <div id="log_in" class="bg-light ml-auto display_none">
                 <h6 class="bg-secondary text-light text-center p-2">Login<span class="small">... for access to delete
                         trains</span></h6>
                 <div id="firebaseui-auth-container"></div>
@@ -133,6 +133,7 @@
                 // user is signed in, so display the Logout button and hide the login div
                 $("#log_in").hide();
                 $("#log_out").show();
+
             } else {
                 // user is not signed in, so hide the Logout button and show the login div
                 $("#log_in").show();
