@@ -37,8 +37,7 @@ function logOut() {
     firebase.auth().signOut();
 }
 
-$(document).ready(function () {
-
+window.onload = function () {
     // hide this before uploading final version to github
     // $("#log_in").show();
     // $("#log_out").hide();
@@ -60,5 +59,4 @@ $(document).ready(function () {
             $(".bg-group").removeClass("bg-custom2").addClass("bg-custom3");
         }
     });
-
-});
+};
