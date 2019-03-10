@@ -49,12 +49,12 @@ firebase.auth().onAuthStateChanged(function (user) {
         $("#log_in").hide();
         $("#log_out").show();
         $(".deleteBtn").show();
-        $(".bg-group").removeClass("bg-custom3").addClass("bg-custom2");
+        $(".bg-group").removeClass("bg-custom").addClass("bg-custom2");
     } else {
         // user is not signed in, so hide the Logout button and show the login div
         $("#log_in").show();
         $("#log_out").hide();
         $(".deleteBtn").hide();
-        $(".bg-group").removeClass("bg-custom2").addClass("bg-custom3");
+        $(".bg-group").removeClass("bg-custom2").addClass("bg-custom");
     }
 });

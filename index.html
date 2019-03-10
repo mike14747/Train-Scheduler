@@ -37,7 +37,7 @@
 
     <div class="container my-4">
 
-        <header class="row border bg-custom2 align-items-center px-4 py-2">
+        <header class="row border bg-custom align-items-center bg-group p-2">
             <div>
                 <h1 class="text-light m-0">Current Train Scheduler Header</h1>
             </div>
@@ -55,8 +55,14 @@
         </header>
 
         <div class="row">
-            <div>
-                <img src="images/anim_train_small.gif" alt="Train Scheduler" class="float-left">
+            <div class="col-2 m-0 p-0">
+                <img src="images/anim_train_small.gif" alt="Train Scheduler" class="img-fluid">
+            </div>
+            <div class="col-8 text-center">
+                <img src="images/ride.jpg" alt="Ride with us!" class="img-fluid">
+            </div>
+            <div class="col-2 text-right">
+                    <img src="images/right_train.png" alt="Ride with us!" class="img-fluid">
             </div>
         </div>
 
@@ -117,8 +123,8 @@
                         <input id="frequency" type="text" class="form-control mt-2 frequency">
                     </div>
 
-                    <button id="submit_train" type="submit">Submit</button> <span
-                        id="train_submitted" class="mx-4 my-2 p-2 border display_none">New train was submitted.</span>
+                    <button id="submit_train" type="submit">Submit</button> <span id="train_submitted"
+                        class="mx-4 my-2 p-2 border display_none">New train was submitted.</span>
 
                 </form>
 
@@ -126,7 +132,7 @@
 
         </div>
 
-        <footer class="row border bg-custom2 justify-content-center px-4 py-2">
+        <footer class="row border bg-custom justify-content-center px-4 py-2 bg-group">
             <h6 class="text-light m-0">Current Footer</h6>
         </footer>
 
