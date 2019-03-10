@@ -42,19 +42,20 @@ function logOut() {
 // $("#log_out").hide();
 // $(".deleteBtn").show();
 
-// unhide this before uploading final version to github
-firebase.auth().onAuthStateChanged(function (user) {
-    if (user) {
-        // user is signed in, so display the Logout button and hide the login div
-        $("#log_in").hide();
-        $("#log_out").show();
-        $(".deleteBtn").show();
-        // $(".bg-group").removeClass("bg-custom3").addClass("bg-custom2");
-    } else {
-        // user is not signed in, so hide the Logout button and show the login div
-        $("#log_in").show();
-        $("#log_out").hide();
-        $(".deleteBtn").hide();
-        // $(".bg-group").removeClass("bg-custom2").addClass("bg-custom3");
-    }
-});
+setTimeout(function () {
+    // unhide this before uploading final version to github
+    firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // user is signed in, so display the Logout button and hide the login div
+            $("#log_in").hide();
+            $("#log_out").show();
+            $(".deleteBtn").show();
+        } else {
+            // user is not signed in, so hide the Logout button and show the login div
+            $("#log_in").show();
+            $("#log_out").hide();
+            $(".deleteBtn").hide();
+        }
+    });
+}, 2000);
+
