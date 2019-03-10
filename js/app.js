@@ -23,6 +23,7 @@ var curFirstTime = "";
 var curFirstTimeFormatted = "";
 var refKey = "";
 var firstTimeRef = "";
+var user = false;
 
 var config = {
     apiKey: "AIzaSyBtaD5bZyS3bWM6-ezy4YZJuXUZt4FStgg",
@@ -93,6 +94,7 @@ database.ref().orderByChild("trainName").on("child_added", function (childSnapsh
     timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
     newRow.append($("<td>").text(timeResult[0]));
     newRow.append($("<td>").text(timeResult[1]));
+    console.log(user);
     newRow.append($("<td class='align-middle deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
     $("#trainTable").append(newRow);
 }, function (errorObject) {
@@ -108,7 +110,7 @@ database.ref().orderByChild("trainName").on("child_changed", function (childSnap
     timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[0] + "</td>"));
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[1] + "</td>"));
-    $("#" + childSnapshot.key + "").append($("<td><button onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
+    $("#" + childSnapshot.key + "").append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
 });
 
 // remove items when they've been deleted

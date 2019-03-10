@@ -37,7 +37,7 @@
 
     <div class="container my-4">
 
-        <header class="row border border-primary bg-primary align-items-center px-4 py-2">
+        <header class="row border bg-custom align-items-center px-4 py-2">
             <div>
                 <h1 class="text-light m-0">Current Train Scheduler Header</h1>
             </div>
@@ -47,15 +47,21 @@
             </div>
 
             <div id="log_in" class="bg-light ml-auto display_none">
-                <h6 class="bg-secondary text-light text-center p-2">Login<span class="small">... for access to add or delete
+                <h6 class="bg-secondary text-light text-center p-2">Login<span class="small"> for access to add / delete
                         trains</span></h6>
                 <div id="firebaseui-auth-container"></div>
                 <div id="loader">Loading...</div>
             </div>
         </header>
 
-        <div class="row border rounded border-primary my-4">
-            <div class="col-12 bg-primary text-light py-2 px-4">
+        <div class="row">
+            <div>
+                <img src="images/anim_train_small.gif" alt="Train Scheduler" class="float-left">
+            </div>
+        </div>
+
+        <div class="row border">
+            <div class="col-12 bg-custom text-light py-2 px-4">
                 <h5 class="m-0">Current Train Schedule</h5>
             </div>
 
@@ -79,8 +85,8 @@
 
         </div>
 
-        <div class="row border rounded border-primary my-4 display_none deleteBtn">
-            <div class="col-12 bg-primary text-light py-2 px-4">
+        <div class="row border my-4 display_none deleteBtn">
+            <div class="col-12 bg-custom text-light py-2 px-4">
                 <h5 class="m-0">Add Train</h5>
             </div>
 
@@ -111,7 +117,7 @@
                         <input id="frequency" type="text" class="form-control mt-2 frequency">
                     </div>
 
-                    <button id="submit_train" class="btn btn-primary" type="submit">Submit</button> <span
+                    <button id="submit_train" type="submit">Submit</button> <span
                         id="train_submitted" class="mx-4 my-2 p-2 border display_none">New train was submitted.</span>
 
                 </form>
@@ -120,7 +126,7 @@
 
         </div>
 
-        <footer class="row border border-primary bg-primary justify-content-center px-4 py-2">
+        <footer class="row border bg-custom justify-content-center px-4 py-2">
             <h6 class="text-light m-0">Current Footer</h6>
         </footer>
 
