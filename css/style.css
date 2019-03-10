@@ -11,14 +11,8 @@ body {
     display: none;
 }
 
-.bg-custom {
-    background-color: #167ea5;
-}
-
-.bg-custom2 {
-    background-color: #548300;
-}
-
-.bg-custom3 {
-    background-color: #66594d;
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #17a2b8;
 }

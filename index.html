@@ -37,16 +37,16 @@
 
     <div class="container bg-white my-4">
 
-        <header class="row border bg-info align-items-center justify-content-between bg-group">
-            <div class="col-8 text-center mr-auto">
-                <h1 class="text-light m-0">Metro Train Station</h1>
+        <header class="row bg-light border align-items-center justify-content-between bg-group">
+            <div class="col-8">
+                <img src="images/metro.png" alt="Metro Train Station" class="img-fluid">
             </div>
 
-            <div class="col-4 mx-auto p-0">
+            <div class="col-4 p-0">
                 <div id="log_out" class="display_none p-2 text-right">
                     <button onclick="logOut()">Log Out</button>
                 </div>
-                <div id="log_in" class="bg-light display_none pb-2">
+                <div id="log_in" class="bg-white display_none pb-2">
                     <h6 class="bg-secondary text-light text-center p-2">Login<span class="small"> for access to add /
                             delete
                             trains</span></h6>
@@ -56,32 +56,33 @@
             </div>
         </header>
 
-        <!--
-        <header class="row border bg-info align-items-center justify-content-between bg-group p-4">
-            <div>
-                <h1 class="text-light m-0">Current Train Scheduler Header</h1>
-            </div>
-
-            <div id="log_out" class="ml-auto display_none">
-                <button class="ml-auto" onclick="logOut()">Log Out</button>
-            </div>
-
-            <div id="log_in" class="bg-light ml-auto display_none">
-                <h6 class="bg-secondary text-light text-center p-2">Login<span class="small"> for access to add / delete
-                        trains</span></h6>
-                <div id="firebaseui-auth-container"></div>
-                <div id="loader">Loading...</div>
-            </div>
-        </header>
-        -->
-
-
         <div class="row">
             <div class="col-2 m-0 p-0">
                 <img src="images/anim_train_small.gif" alt="Train Scheduler" class="img-fluid">
             </div>
             <div class="col-8 text-center">
-                <img src="images/ride.jpg" alt="Ride with us!" class="img-fluid">
+                <ul class="nav nav-pills mt-1 mb-2 justify-content-center" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-tickets" role="tab"
+                            aria-controls="pills-tickets" aria-selected="false">Tickets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-hours-tab" data-toggle="pill" href="#pills-hours" role="tab"
+                            aria-controls="pills-hours" aria-selected="false">Hours</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="pills-about-tab" data-toggle="pill" href="#pills-about" role="tab"
+                            aria-controls="pills-about" aria-selected="true">About</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade" id="pills-tickets" role="tabpanel"
+                        aria-labelledby="pills-tickets-tab">Sorry... our offices are closed for maintenance</div>
+                    <div class="tab-pane fade" id="pills-hours" role="tabpanel" aria-labelledby="pills-hours-tab">
+                        We're open 24 hours a day... every day of the year... except for today.</div>
+                    <div class="tab-pane fade show active" id="pills-about" role="tabpanel" aria-labelledby="pills-about-tab">
+                        Metro Train Station... our trains are always on time!</div>
+                </div>
             </div>
             <div class="col-2 text-right">
                 <img src="images/right_train.png" alt="Ride with us!" class="img-fluid">
