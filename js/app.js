@@ -17,13 +17,6 @@ var result = 0;
 var now = "";
 var nextArrival = "";
 var timeResult = [];
-var nextFormatted = "";
-var nextResult = "";
-var curFirstTime = "";
-var curFirstTimeFormatted = "";
-var refKey = "";
-var firstTimeRef = "";
-var user = false;
 
 var config = {
     apiKey: "AIzaSyBtaD5bZyS3bWM6-ezy4YZJuXUZt4FStgg",
@@ -39,35 +32,6 @@ var database = firebase.database();
 // remove the train by its key
 function removeTrain(key) {
     database.ref().child(key).remove();
-}
-
-function updateTrain(key, uName, uDest, uNext) {
-
-    // calculate the change in next arrival time, change the First Train Time accordingly
-    // this will automatically update the Minutes Away
-    firstTimeRef = database.ref(key + "/firstTime");
-    firstTimeRef.on('value', function (snapshot) {
-        curFirstTime = snapshot.val();
-    });
-    curFirstTimeFormatted = moment(curFirstTime, "hh:mm");
-
-    trainName = $("#updated_train_name").val().trim();
-    destination = $("#updated_destination").val().trim();
-    nextArrival = $("#updated_next_arrival").val().trim();
-
-    // nextFormatted = moment(nextUp, "hh:mm");
-    nextResult = curFirstTimeFormatted.diff(nextFormatted, "minutes");
-
-    console.log(trainName);
-
-    /*
-    var updatedTrain = {
-        trainName: trainName,
-        destination: destination,
-        firstTime: firstTime
-    };
-    database.ref().child(refKey).update(updatedTrain);
-    */
 }
 
 // format the time and return it in the formats/values needed for the Next Arrival and Minutes Away columns
