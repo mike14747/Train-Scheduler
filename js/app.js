@@ -74,6 +74,9 @@ database.ref().orderByChild("trainName").on("child_changed", function (childSnap
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[0] + "</td>"));
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[1] + "</td>"));
     $("#" + childSnapshot.key + "").append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
+    if (user) {
+        $(".deleteBtn").show();
+    }
 });
 
 // remove items when they've been deleted
