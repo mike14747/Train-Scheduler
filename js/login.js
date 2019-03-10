@@ -38,11 +38,11 @@ function logOut() {
 }
 
 // hide this before uploading final version to github
-$("#log_in").show();
-$("#log_out").hide();
-$(".deleteBtn").show();
+// $("#log_in").show();
+// $("#log_out").hide();
+// $(".deleteBtn").show();
 
-/* unhide this before uploading final version to github
+// unhide this before uploading final version to github
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         // user is signed in, so display the Logout button and hide the login div
@@ -56,4 +56,3 @@ firebase.auth().onAuthStateChanged(function (user) {
         $(".deleteBtn").hide();
     }
 });
-*/
