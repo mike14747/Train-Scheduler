@@ -10,6 +10,8 @@
 
 h1, .h1 {
   font-size: 3rem;
+  font-weight: 550;
+  font-family: 'Georgia', Times, Times New Roman, serif;
 }
 
 .firebaseui-idp-button {
