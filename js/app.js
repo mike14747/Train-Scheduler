@@ -60,16 +60,17 @@ function loadTrainSchedule() {
         timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
         newRow.append($("<td>").text(timeResult[0]));
         newRow.append($("<td>").text(timeResult[1]));
+        if (loggedIn) {
         newRow.append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1 testBtn' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
+        } else {
+            newRow.append($("<td class='align-middle deleteBtn'><button class='mr-1 mb-1 testBtn' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
+        }
+        
         $("#trainTable").append(newRow);
     }, function (errorObject) {
         console.log("There is an error: " + errorObject.code);
     });
-    if (loggedIn) {
-        $("#log_in").hide();
-        $("#log_out").show();
-        $(".deleteBtn").show();
-    }
+    return;
 }
 
 // update items that have been changed
