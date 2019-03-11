@@ -28,18 +28,20 @@ function logOut() {
     firebase.auth().signOut();
 }
 
-setTimeout(function () {
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            // user is signed in, so display the Logout button and hide the login div
-            $("#log_in").hide();
-            $("#log_out").show();
-            $(".deleteBtn").show();
-        } else {
-            // user is not signed in, so hide the Logout button and show the login div
-            $("#log_in").show();
-            $("#log_out").hide();
-            $(".deleteBtn").hide();
-        }
-    });
-}, 2000);
+firebase.auth().onAuthStateChanged(function (user) {
+    if (user) {
+        // user is signed in, so display the Logout button and hide the login div
+        $("#log_in").hide();
+        $("#log_out").show();
+        $(".deleteBtn").show();
+        loggedIn = true;
+        loadTrainSchedule();
+    } else {
+        // user is not signed in, so hide the Logout button and show the login div
+        $("#log_in").show();
+        $("#log_out").hide();
+        $(".deleteBtn").hide();
+        loggedIn = false;
+        loadTrainSchedule();
+    }
+});

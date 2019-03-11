@@ -17,6 +17,7 @@ var result = 0;
 var now = "";
 var nextArrival = "";
 var timeResult = [];
+var loggedIn = false;
 
 var config = {
     apiKey: "AIzaSyBtaD5bZyS3bWM6-ezy4YZJuXUZt4FStgg",
@@ -49,20 +50,27 @@ function formatTime(start, freq) {
     nextArrival = moment().add(minutesAway, 'm').format("hh:mm A");
     return [nextArrival, minutesAway];
 }
-// load the train schedule from the database when a new train has been added
-database.ref().orderByChild("trainName").on("child_added", function (childSnapshot) {
-    newRow = $("<tr id='" + childSnapshot.key + "'>");
-    newRow.append($("<td>").text(childSnapshot.child("trainName").val()));
-    newRow.append($("<td>").text(childSnapshot.child("destination").val()));
-    newRow.append($("<td>").text(childSnapshot.child("frequency").val()));
-    timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
-    newRow.append($("<td>").text(timeResult[0]));
-    newRow.append($("<td>").text(timeResult[1]));
-    newRow.append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
-    $("#trainTable").append(newRow);
-}, function (errorObject) {
-    console.log("There is an error: " + errorObject.code);
-});
+
+function loadTrainSchedule() {
+    database.ref().orderByChild("trainName").on("child_added", function (childSnapshot) {
+        newRow = $("<tr id='" + childSnapshot.key + "'>");
+        newRow.append($("<td>").text(childSnapshot.child("trainName").val()));
+        newRow.append($("<td>").text(childSnapshot.child("destination").val()));
+        newRow.append($("<td>").text(childSnapshot.child("frequency").val()));
+        timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
+        newRow.append($("<td>").text(timeResult[0]));
+        newRow.append($("<td>").text(timeResult[1]));
+        newRow.append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1 testBtn' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
+        $("#trainTable").append(newRow);
+    }, function (errorObject) {
+        console.log("There is an error: " + errorObject.code);
+    });
+    if (loggedIn) {
+        $("#log_in").hide();
+        $("#log_out").show();
+        $(".deleteBtn").show();
+    }
+}
 
 // update items that have been changed
 database.ref().orderByChild("trainName").on("child_changed", function (childSnapshot) {
@@ -73,11 +81,7 @@ database.ref().orderByChild("trainName").on("child_changed", function (childSnap
     timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[0] + "</td>"));
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[1] + "</td>"));
-    if (user) {
-        $("#" + childSnapshot.key + "").append($("<td class='align-middle deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
-    } else {
-        $("#" + childSnapshot.key + "").append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
-    }
+    $("#" + childSnapshot.key + "").append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
 });
 
 // remove items when they've been deleted

@@ -7,3 +7,15 @@
   color: #fff;
   background-color: #17a2b8;
 }
+
+.firebaseui-idp-button {
+  padding: 4px 8px;
+  max-width: 180px;
+}
+
+@media (max-width: 991.98px) {
+  .nav-link {
+    display: block;
+    padding: 0.25rem 0.50rem;
+  }
+}

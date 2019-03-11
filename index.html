@@ -20,7 +20,13 @@
         crossorigin="anonymous"></script>
 
     <!-- Link to the Firebase js -->
-    <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
+    <!-- Firebase App is always required and must be first -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-app.js"></script>
+
+    <!-- Add additional services that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase-database.js"></script>
+
     <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
     <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
 
@@ -38,11 +44,11 @@
     <div class="container border bg-white my-4">
 
         <header class="row bg-light border-bottom align-items-center justify-content-between bg-group">
-            <div class="col-8">
+            <div class="col-9">
                 <img src="images/metro.png" alt="Metro Train Station" class="img-fluid my-2">
             </div>
 
-            <div class="col-4 p-0">
+            <div class="col-3 p-0">
                 <div id="log_out" class="display_none p-2 text-right">
                     <button onclick="logOut()">Log Out</button>
                 </div>
@@ -71,16 +77,17 @@
                             aria-controls="pills-hours" aria-selected="false">Hours</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" id="pills-about-tab" data-toggle="pill" href="#pills-about" role="tab"
-                            aria-controls="pills-about" aria-selected="true">About</a>
+                        <a class="nav-link active" id="pills-about-tab" data-toggle="pill" href="#pills-about"
+                            role="tab" aria-controls="pills-about" aria-selected="true">About</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade" id="pills-tickets" role="tabpanel"
-                        aria-labelledby="pills-tickets-tab">Sorry... our ticket office is closed for maintenance.</div>
+                    <div class="tab-pane fade" id="pills-tickets" role="tabpanel" aria-labelledby="pills-tickets-tab">
+                        Sorry... our ticket office is closed for maintenance.</div>
                     <div class="tab-pane fade" id="pills-hours" role="tabpanel" aria-labelledby="pills-hours-tab">
                         We're open 24 hours a day... every day of the year!</div>
-                    <div class="tab-pane fade show active" id="pills-about" role="tabpanel" aria-labelledby="pills-about-tab">
+                    <div class="tab-pane fade show active" id="pills-about" role="tabpanel"
+                        aria-labelledby="pills-about-tab">
                         Metro Train Station... our trains are always on time!</div>
                 </div>
             </div>
