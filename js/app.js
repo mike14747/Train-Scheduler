@@ -19,6 +19,8 @@ var nextArrival = "";
 var timeResult = [];
 var loggedIn = false;
 var key = "";
+var start = "";
+var cur = "";
 
 var config = {
     apiKey: "AIzaSyBtaD5bZyS3bWM6-ezy4YZJuXUZt4FStgg",
@@ -78,19 +80,19 @@ $("#update_train").on("click", function () {
     }
 });
 
-// format the time and return it in the formats/values needed for the Next Arrival and Minutes Away columns
 function formatTime(start, freq) {
-    // take the timespamp of when it was entered and determine the timestamp of the first time it will run after creation
+    startFormatted = moment(start, "HH:mm").format("HH:mm");
     now = moment();
-    startFormatted = moment(start, "hh:mm");
-    result = now.diff(startFormatted, "minutes");
+    start = moment(startFormatted, "HH:mm");
+    cur = moment(now, "HH:mm");
+    result = cur.diff(start, 'minutes');
     if (result > 0) {
-        adjResult = result;
+        minutesAway = freq - (result % freq);
+        nextArrival = cur.add(minutesAway, 'm').format("hh:mm A");
     } else {
-        adjResult += 1440;
+        minutesAway = start.diff(cur, 'minutes');
+        nextArrival = start.format("hh:mm A");
     }
-    minutesAway = freq - (adjResult % freq);
-    nextArrival = moment().add(minutesAway, 'm').format("hh:mm A");
     return [nextArrival, minutesAway];
 }
 
@@ -123,7 +125,7 @@ function loadTrainSchedule() {
         timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
         newRow.append($("<td>").text(timeResult[0]));
         newRow.append($("<td>").text(timeResult[1]));
-        newRow.append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn del_td'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child('destination').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='fas fa-2x fa-edit'></i></a><a onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\"><i class='fas fa-2x fa-trash-alt del_icon'></i></a></td>"));
+        newRow.append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn del_td'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child('destination').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='far fa-2x fa-edit'></i></a><a onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\"><i class='far fa-2x fa-trash-alt del_icon'></i></a></td>"));
         $("#trainTable").append(newRow);
         if (loggedIn) {
             $(".deleteBtn").show();
