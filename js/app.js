@@ -131,7 +131,6 @@ function loadTrainSchedule() {
         newRow.append($("<td>").text(timeResult[1]));
         newRow.append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn del_td'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child('destination').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='far fa-2x fa-edit'></i></a><a onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\"><i class='far fa-2x fa-trash-alt del_icon'></i></a></td>"));
         $("#trainTable").append(newRow);
-        loggedIn = true;
         if (loggedIn) {
             $(".deleteBtn").show();
         }
