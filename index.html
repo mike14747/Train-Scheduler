@@ -152,12 +152,17 @@
                                     <input id="edit_train_name" type="text" class="form-control mt-2">
                                 </div>
                                 <div class="form-group">
+                                    <label for="edit_destination" class="mb-0">New Destination</label><span
+                                        id="new_dest_error" class="ml-4 text-danger"></span>
+                                    <input id="edit_destination" type="text" class="form-control mt-2">
+                                </div>
+                                <div class="form-group">
                                     <label for="edit_arrival_time" class="mb-0">New Arrival Time <span
                                             class="small">(hh:mm -
                                             military
                                             time)</span></label><span id="new_time_error"
                                         class="ml-4 text-danger"></span>
-                                    <input id="edit_arrival_time" type="text" class="form-control mt-2">
+                                    <input id="edit_arrival_time" type="text" class="form-control mt-2" maxlength="5">
                                 </div>
                         </div>
                         <div class="modal-footer">
@@ -217,7 +222,7 @@
                     <div class="form-group">
                         <label for="first_time" class="mb-0">First Train Time <span class="small">(hh:mm - military
                                 time)</span></label><span id="time_error" class="ml-4 text-danger"></span>
-                        <input id="first_time" type="text" class="form-control mt-2">
+                        <input id="first_time" type="text" class="form-control mt-2" maxlength="5">
                     </div>
 
                     <div class="form-group">
