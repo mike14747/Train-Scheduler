@@ -121,6 +121,7 @@ function editModal(key, name, dest, first) {
 
 // load the train schedule on the first visit to the page or when the logged in state changes
 function loadTrainSchedule() {
+    $("#trainTable").empty();
     database.ref().orderByChild("trainName").on("child_added", function (childSnapshot) {
         newRow = $("<tr id='" + childSnapshot.key + "'>");
         newRow.append($("<td>").text(childSnapshot.child("trainName").val()));
