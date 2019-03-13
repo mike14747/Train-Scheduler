@@ -80,6 +80,7 @@ $("#update_train").on("click", function () {
     }
 });
 
+// format the times and calculate the next arrival time and minutes away
 function formatTime(start, freq) {
     startFormatted = moment(start, "HH:mm").format("HH:mm");
     now = moment();
@@ -96,6 +97,7 @@ function formatTime(start, freq) {
     return [nextArrival, minutesAway];
 }
 
+// send the train name and key to the delete modal for confirmation
 function deleteModal(key, name) {
     $("#train_delete").text(name);
     $("#delete_name").attr("value", name);
@@ -104,6 +106,7 @@ function deleteModal(key, name) {
     return;
 }
 
+// populate the current data to be edited in the modal
 function editModal(key, name, dest, first) {
     $("#edit_train_name").text(name);
     $("#edit_train_name").attr("value", name);
@@ -116,6 +119,7 @@ function editModal(key, name, dest, first) {
     return;
 }
 
+// load the train schedule on the first visit to the page or when the logged in state changes
 function loadTrainSchedule() {
     database.ref().orderByChild("trainName").on("child_added", function (childSnapshot) {
         newRow = $("<tr id='" + childSnapshot.key + "'>");
@@ -127,6 +131,7 @@ function loadTrainSchedule() {
         newRow.append($("<td>").text(timeResult[1]));
         newRow.append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn del_td'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child('destination').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='far fa-2x fa-edit'></i></a><a onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\"><i class='far fa-2x fa-trash-alt del_icon'></i></a></td>"));
         $("#trainTable").append(newRow);
+        loggedIn = true;
         if (loggedIn) {
             $(".deleteBtn").show();
         }
