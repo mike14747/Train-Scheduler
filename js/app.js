@@ -41,17 +41,41 @@ $("#delete_train").on("click", function () {
 
 $("#update_train").on("click", function () {
     event.preventDefault()
-    $("#editTrainModal").modal("hide");
     trainName = $("#edit_train_name").val().trim();
     destination = $("#edit_destination").val().trim();
     firstTime = $("#edit_arrival_time").val().trim();
     key = $("#edit_key").val();
-    var updatedTrain = {
-        trainName: trainName,
-        destination: destination,
-        firstTime: firstTime
-    };
-    database.ref().child(key).update(updatedTrain);
+    // form validation
+    if (trainName == "") {
+        nameErrors = true;
+        $("#new_name_error").text("Train Name field cannot be left blank.");
+    } else {
+        nameErrors = false;
+        $("#new_name_error").text("");
+    }
+    if (destination == "") {
+        destErrors = true;
+        $("#new_dest_error").text("Destination field cannot be left blank.");
+    } else {
+        destErrors = false;
+        $("#new_dest_error").text("");
+    }
+    if (firstTime == "" || !firstTime.match(regExp)) {
+        timeErrors = true;
+        $("#new_time_error").text("Next Arrival Time must be in military time using the hh:mm format.");
+    } else {
+        timeErrors = false;
+        $("#new_time_error").text("");
+    }
+    if (!nameErrors && !destErrors && !timeErrors) {
+        $("#editTrainModal").modal("hide");
+        var updatedTrain = {
+            trainName: trainName,
+            destination: destination,
+            firstTime: firstTime
+        };
+        database.ref().child(key).update(updatedTrain);
+    }
 });
 
 // format the time and return it in the formats/values needed for the Next Arrival and Minutes Away columns
@@ -99,9 +123,8 @@ function loadTrainSchedule() {
         timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
         newRow.append($("<td>").text(timeResult[0]));
         newRow.append($("<td>").text(timeResult[1]));
-        newRow.append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child('destination').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='fas fa-edit'></i></a><button type='button' class='ml-4 mr-1 mb-1 testBtn' onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\">X</button></td>"));
+        newRow.append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn del_td'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child('destination').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='fas fa-2x fa-edit'></i></a><a onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\"><i class='fas fa-2x fa-trash-alt del_icon'></i></a></td>"));
         $("#trainTable").append(newRow);
-        loggedIn = true;
         if (loggedIn) {
             $(".deleteBtn").show();
         }

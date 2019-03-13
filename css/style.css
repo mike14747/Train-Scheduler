@@ -31,6 +31,10 @@ i {
   max-width: 200px;
 }
 
+.del_icon {
+  margin: 0 0 0 1rem;
+}
+
 @media (max-width: 991.98px) {
   .nav-link {
     display: block;
@@ -51,11 +55,17 @@ i {
     font-weight: 500;
     font-family: 'Georgia', Times, Times New Roman, serif;
   }
+  .del_icon {
+    margin: 1rem 0 0 0;
+  }
+  .del_td {
+    max-width: 55px;
+  }
 }
 
 @media (max-width: 639.98px) {
   .table th,
   .table td {
-    padding: 0.25rem;
+    padding: 0.75rem 0.25rem;
   }
 }

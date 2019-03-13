@@ -64,8 +64,7 @@
                 </div>
                 <div id="log_in" class="bg-white display_none pb-2">
                     <h6 class="bg-secondary text-light text-center p-2">Login<span class="small"> for access to add /
-                            delete
-                            trains</span></h6>
+                            edit / delete trains</span></h6>
                     <div id="firebaseui-auth-container"></div>
                     <div id="loader">Loading...</div>
                 </div>
@@ -108,18 +107,18 @@
 
         <div class="row border">
             <!-- Delete Modal -->
-            <div class="modal fade" id="deleteTrainModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+            <div id="deleteTrainModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+                        <div class="modal-header bg-light">
+                            <h5 id="deleteModalLabel" class="modal-title">Delete Confirmation</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            Are you sure you want to delete: <span id="train_delete" class="text-info"></span> ?
+                            Are you sure you want to delete: <span id="train_delete" class="text-info font-weight-bolder text_break"></span> ?
                         </div>
                         <div class="modal-footer">
                             <form>
@@ -134,12 +133,12 @@
             </div>
 
             <!-- Edit Modal -->
-            <div class="modal fade" id="editTrainModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+            <div id="editTrainModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="editModalLabel">Edit Train</h5>
+                        <div class="modal-header bg-light">
+                            <h5 id="editModalLabel" class="modal-title">Edit Train</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -188,7 +187,7 @@
                             <th>Frequency (min)</th>
                             <th>Next Arrival</th>
                             <th>Minutes Away</th>
-                            <th class="display_none deleteBtn"><span>Edit / Delete</span></th>
+                            <th class="display_none deleteBtn del_td"><span>Edit / Delete</span></th>
                         </tr>
                     </thead>
                     <tbody id="trainTable">
@@ -232,7 +231,7 @@
                     </div>
 
                     <button id="submit_train" type="submit">Submit</button> <span id="train_submitted"
-                        class="mx-4 my-2 p-2 border display_none">New train was submitted.</span>
+                        class="mx-4 my-2 p-2 border display_none text-success font-weight-bolder">New train was submitted.</span>
 
                 </form>
 
