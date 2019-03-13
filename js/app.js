@@ -31,6 +31,9 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // remove the train by its key
+$("#delete_train").on("click", function () {
+    database.ref().child($("#delete_key").val()).remove();
+});
 function removeTrain(key) {
     database.ref().child(key).remove();
 }
@@ -51,6 +54,24 @@ function formatTime(start, freq) {
     return [nextArrival, minutesAway];
 }
 
+function deleteModal(key, name) {
+    $("#train_delete").text(name);
+    $("#delete_name").attr("value", name);
+    $("#delete_key").attr("value", key);
+    $("#deleteTrainModal").modal("show");
+    return;
+}
+
+function editModal(key, name, first) {
+    $("#edit_train_name").text(name);
+    $("#edit_train_name").attr("value", name);
+    $("#edit_arrival_time").text(name);
+    $("#edit_arrival_time").attr("value", first);
+    $("#edit_key").attr("value", key);
+    $("#editTrainModal").modal("show");
+    return;
+}
+
 function loadTrainSchedule() {
     database.ref().orderByChild("trainName").on("child_added", function (childSnapshot) {
         newRow = $("<tr id='" + childSnapshot.key + "'>");
@@ -60,8 +81,10 @@ function loadTrainSchedule() {
         timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
         newRow.append($("<td>").text(timeResult[0]));
         newRow.append($("<td>").text(timeResult[1]));
-        newRow.append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1 testBtn' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
+        newRow.append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='fas fa-edit'></i></a><button type='button' class='ml-4 mr-1 mb-1 testBtn' onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\">X</button></td>"));
+
         $("#trainTable").append(newRow);
+        loggedIn = true;
         if (loggedIn) {
             $(".deleteBtn").show();
         }
@@ -80,7 +103,7 @@ database.ref().orderByChild("trainName").on("child_changed", function (childSnap
     timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[0] + "</td>"));
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[1] + "</td>"));
-    $("#" + childSnapshot.key + "").append($("<td class='align-middle display_none deleteBtn'><button class='mr-1 mb-1' onclick=\"removeTrain('" + childSnapshot.key + "')\">X</button></td>"));
+    $("#" + childSnapshot.key + "").append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='fas fa-edit'></i></a><button type='button' class='ml-4 mr-1 mb-1 testBtn' onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\">X</button></td>"));
     if (loggedIn) {
         $(".deleteBtn").show();
     }

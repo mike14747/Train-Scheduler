@@ -36,23 +36,29 @@
     <!-- include my bootstrap companion style sheet -->
     <link rel="stylesheet" type="text/css" href="css/style.css">
 
+    <!-- Font Awesome references -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css"
+        integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css"
+        integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous">
+
     <title>Train Scheduler</title>
 </head>
 
 <body>
 
-    <div class="container border bg-white my-4">
+    <div class="container bg-white my-4">
 
-        <header class="row bg-light border-bottom align-items-center justify-content-between bg-group">
-            <div class="col-9">
+        <header class="row bg-light border align-items-center bg-group">
+            <div class="col mr-auto">
                 <!--
                     <img src="images/header1.png" alt="Metro Train Station" class="img-fluid my-2">
                 -->
                 <h1>Metro Train Station</h1>
-                <img src="images/header2.png" alt="...our trains are always on time!"  class="img-fluid my-2 header2">
+                <img src="images/header2.png" alt="...our trains are always on time!" class="img-fluid my-2 header2">
             </div>
 
-            <div class="col-3 p-0">
+            <div class="col login_area p-0">
                 <div id="log_out" class="display_none p-2 text-right">
                     <button onclick="logOut()">Log Out</button>
                 </div>
@@ -66,11 +72,11 @@
             </div>
         </header>
 
-        <div class="row border-bottom">
-            <div class="col-2 m-0 p-0">
+        <div class="row border-left border-right">
+            <div class="col-2 m-0 p-0 col_hide">
                 <img src="images/anim_train_small.gif" alt="Train Scheduler" class="img-fluid">
             </div>
-            <div class="col-8 text-center">
+            <div class="col text-center">
                 <ul class="nav nav-pills mt-1 mb-2 justify-content-center" id="pills-tab" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link" id="pills-home-tab" data-toggle="pill" href="#pills-tickets" role="tab"
@@ -95,17 +101,80 @@
                         Metro Train Station... our trains are always on time!</div>
                 </div>
             </div>
-            <div class="col-2 text-right">
+            <div class="col-2 text-right col_hide">
                 <img src="images/right_train.png" alt="Ride with us!" class="img-fluid">
             </div>
         </div>
 
-        <div class="row border-bottom">
+        <div class="row border">
+            <!-- Delete Modal -->
+            <div class="modal fade" id="deleteTrainModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete: <span id="train_delete" class="text-info"></span> ?
+                        </div>
+                        <div class="modal-footer">
+                            <form>
+                                <input id="delete_name" type="hidden">
+                                <input id="delete_key" type="hidden">
+                                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                <button id="delete_train" type="submit" class="btn btn-warning">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Modal -->
+            <div class="modal fade" id="editTrainModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Edit Train</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="edit_train_name" class="mb-0">New Train Name</label><span
+                                        id="new_name_error" class="ml-4 text-danger"></span>
+                                    <input id="edit_train_name" type="text" class="form-control mt-2">
+                                </div>
+                                <div class="form-group">
+                                    <label for="edit_arrival_time" class="mb-0">New Arrival Time <span
+                                            class="small">(hh:mm -
+                                            military
+                                            time)</span></label><span id="new_time_error"
+                                        class="ml-4 text-danger"></span>
+                                    <input id="edit_arrival_time" type="text" class="form-control mt-2">
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <input id="edit_key" type="hidden">
+                            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                            <button id="update_train" type="submit" class="btn btn-info">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-12 bg-info text-light py-2 px-4">
                 <h5 class="m-0">Current Train Schedule</h5>
             </div>
 
-            <div class="col-12">
+            <div class="col-12 table_overflow">
                 <table class="table">
                     <thead>
                         <tr>
@@ -114,7 +183,7 @@
                             <th>Frequency (min)</th>
                             <th>Next Arrival</th>
                             <th>Minutes Away</th>
-                            <th class="display_none deleteBtn"><span>Delete</span></th>
+                            <th class="display_none deleteBtn"><span>Edit / Delete</span></th>
                         </tr>
                     </thead>
                     <tbody id="trainTable">
@@ -125,7 +194,7 @@
 
         </div>
 
-        <div class="row my-4 display_none deleteBtn">
+        <div class="row border my-4 display_none deleteBtn">
             <div class="col-12 bg-info text-light py-2 px-4">
                 <h5 class="m-0">Add Train</h5>
             </div>
@@ -136,25 +205,25 @@
                     <div class="form-group">
                         <label for="train_name" class="mb-0">Train Name</label><span id="name_error"
                             class="ml-4 text-danger"></span>
-                        <input id="train_name" type="text" class="form-control mt-2 train_name">
+                        <input id="train_name" type="text" class="form-control mt-2">
                     </div>
 
                     <div class="form-group">
                         <label for="destination" class="mb-0">Destination</label><span id="dest_error"
                             class="ml-4 text-danger"></span>
-                        <input id="destination" type="text" class="form-control mt-2 destination">
+                        <input id="destination" type="text" class="form-control mt-2">
                     </div>
 
                     <div class="form-group">
                         <label for="first_time" class="mb-0">First Train Time <span class="small">(hh:mm - military
                                 time)</span></label><span id="time_error" class="ml-4 text-danger"></span>
-                        <input id="first_time" type="text" class="form-control mt-2 first_time">
+                        <input id="first_time" type="text" class="form-control mt-2">
                     </div>
 
                     <div class="form-group">
                         <label for="frequency" class="mb-0">Frequency <span class="small">(in
                                 minutes)</span></label><span id="freq_error" class="ml-4 text-danger"></span>
-                        <input id="frequency" type="text" class="form-control mt-2 frequency">
+                        <input id="frequency" type="text" class="form-control mt-2">
                     </div>
 
                     <button id="submit_train" type="submit">Submit</button> <span id="train_submitted"
