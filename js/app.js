@@ -150,7 +150,7 @@ database.ref().orderByChild("trainName").on("child_changed", function (childSnap
     timeResult = formatTime(childSnapshot.child("firstTime").val(), childSnapshot.child("frequency").val());
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[0] + "</td>"));
     $("#" + childSnapshot.key + "").append($("<td>" + timeResult[1] + "</td>"));
-    $("#" + childSnapshot.key + "").append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn del_td'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child('destination').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='fas fa-2x fa-edit'></i></a><a onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\"><i class='fas fa-2x fa-trash-alt del_icon'></i></a></td>"));
+    $("#" + childSnapshot.key + "").append($("<td class='align-middle justify-content-center align-items-center display_none deleteBtn del_td'><a onclick=\"editModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "', '" + childSnapshot.child('destination').val() + "', '" + childSnapshot.child("firstTime").val() + "')\"><i class='far fa-2x fa-edit'></i></a><a onclick=\"deleteModal('" + childSnapshot.key + "', '" + childSnapshot.child('trainName').val() + "')\"><i class='far fa-2x fa-trash-alt del_icon'></i></a></td>"));
     if (loggedIn) {
         $(".deleteBtn").show();
     }
