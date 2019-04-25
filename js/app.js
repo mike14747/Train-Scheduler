@@ -34,7 +34,7 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 // remove the train by its key
-$("#delete_train").on("click", function () {
+$("#delete_train").on("click", function (event) {
     event.preventDefault()
     $("#deleteTrainModal").modal("hide");
     key = $("#delete_key").val();
@@ -42,7 +42,7 @@ $("#delete_train").on("click", function () {
 });
 
 $("#update_train").on("click", function () {
-    event.preventDefault()
+    event.preventDefault();
     trainName = $("#edit_train_name").val().trim();
     destination = $("#edit_destination").val().trim();
     firstTime = $("#edit_arrival_time").val().trim();
@@ -161,8 +161,8 @@ database.ref().on("child_removed", function (childSnapshot) {
     $("#" + childSnapshot.key + "").remove();
 });
 
-$("#submit_train").on("click", function () {
-    event.preventDefault()
+$("#submit_train").on("click", function (event) {
+    event.preventDefault();
 
     trainName = $("#train_name").val().trim();
     destination = $("#destination").val().trim();
